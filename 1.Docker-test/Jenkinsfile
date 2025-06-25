@@ -1,6 +1,5 @@
-pipeline{
-
-    agents{
+pipeline {
+    agent {
         docker {
             image 'node:22.16.0-alpine3.22'
         }
@@ -13,13 +12,14 @@ pipeline{
             }
         }
 
-        stage ('build'){
-            stpes{
+        stage ('build') {
+            steps {
                 sh 'node --version'
             }
         }
     }
-    post{
+
+    post {
         always {
             echo 'This will always run'
         }
