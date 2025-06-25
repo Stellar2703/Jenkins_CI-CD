@@ -1,0 +1,33 @@
+pipeline{
+
+    agents{
+        docker {
+            image 'node:22.16.0-alpine3.22'
+        }
+    }
+
+    stages {
+        stage ('install dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage ('build'){
+            stpes{
+                sh 'node --version'
+            }
+        }
+    }
+    post{
+        always {
+            echo 'This will always run'
+        }
+        success {
+            echo 'This will run only if the pipeline is successful'
+        }
+        failure {
+            echo 'This will run only if the pipeline fails'
+        }
+    }
+}
