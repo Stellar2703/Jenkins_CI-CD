@@ -1,0 +1,71 @@
+pipeline {
+    agent {
+        label 'react-deploy-node' // Jenkins agent label for 192.168.10.4
+    }
+
+    environment {
+        REPO_URL = 'https://github.com/yourusername/your-react-repo.git'
+        DEPLOY_DIR = '/var/www/html'
+    }
+
+    stages {
+
+        stage('Redirecting to the Folder') {
+            steps {
+                sh 'cd /projects'
+            }
+        }
+
+        stage('Clone Repository') {
+            steps {
+                git credentialsId: 'github-credentials', url: 'https://github.com/Stellar2703/Linux-Test-Portal-Frontend.git', branch: 'main'
+            }
+        }
+
+        stage('Redirecting to the Folder') {
+            steps {
+                sh 'cd Linux-Test-Portal-Frontend'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Build React App') {
+            steps {
+                sh 'npm run build'
+            }
+        }
+
+        stage('Deploy to /var/www/html') {
+            steps {
+                sh 'sudo rm -rf /var/www/html/*'
+                sh 'sudo cp -r build/* /var/www/html/'
+            }
+        }
+
+        stage('Restart Nginx') {
+            steps {
+                sh 'sudo systemctl restart nginx'
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'The pipeline script is intended to deploy a React application to the R230 Server.'
+        }
+        success {
+            echo 'Deployment successful!'
+            sh 'rm -rf /projects/Linux-Test-Portal-Frontend' // Clean up the cloned repository
+            echo 'Cleaned up the cloned repository.'
+            
+        }
+        failure {
+            echo 'Deployment failed.'
+        }
+    }
+}

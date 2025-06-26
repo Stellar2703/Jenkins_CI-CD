@@ -1,0 +1,27 @@
+pipeline{
+    agent any
+    stages {
+        stage ('Clone Repository') {
+            steps {
+                git url: 'https://github.com/Stellar2703/Jenkins.git', branch: 'main'
+            }
+        }
+        stage ('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'This will always run'
+        }
+        success {
+            echo 'This will run only if the pipeline is successful'
+        }
+        failure {
+            echo 'This will run only if the pipeline fails'
+        }
+    }
+}
