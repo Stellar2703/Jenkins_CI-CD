@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+
+    stages{
+        stage ('git pull'){
+            steps{
+                git credentialsId:github-token-cred , url:https://github.com/stellar2703 , branch:main                
+                }
+            }
+    
+        stage('verify webhook triggering') {
+            steps{
+                script{
+                    echo "automatic webhook triggering"
+                }
+            }
+        }
+        
+    }
+
+    post {
+        always {
+            echo 'This pipeline is intended to trigger a webhook automatically.'
+        }
+        success {
+            echo 'webhook triggered successfully!'
+        }
+        failure {
+            echo 'webhook triggering failed.'
+        }
+    }
+}

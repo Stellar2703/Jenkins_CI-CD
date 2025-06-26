@@ -1,0 +1,24 @@
+pipeline{
+    agent any 
+    parameters {
+        string(name: 'MY_PARAM', defaultValue: 'Hello, World!', description: 'A parameter to demonstrate printing')
+        choices(name: 'MY_CHOICES', choices: ['Option 1', 'Option 2', 'Option 3'], description: 'A parameter with choices')
+    }
+    stages{
+        stage ('Printing using a parameter'){
+            steps{
+                script {
+                    echo "The value of MY_PARAM is: ${params.MY_PARAM}"
+                } 
+            }
+        }
+
+        stage ('Printing using a choice parameter'){
+            steps{
+                script {
+                    echo "The selected choice is: ${params.MY_CHOICES}"
+                } 
+            }
+        }
+    }
+}

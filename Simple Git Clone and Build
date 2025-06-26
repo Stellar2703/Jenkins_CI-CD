@@ -1,0 +1,19 @@
+pipeline{
+    agent any
+
+    stages{
+
+        stage('Clone Repo'){
+            steps{
+                git credentialsId: 'github-token-cred', url: 'https://github.com/Stellar2703/LeetCode.git' branch: 'main'
+                echo 'Cloned the repository successfully.'
+            }
+        }
+
+        stage('printing hello world'){
+            steps{
+                echo 'Hello World!'
+            }
+        }
+    }
+}
