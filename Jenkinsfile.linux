@@ -12,7 +12,7 @@ pipeline {
 
         stage('Redirecting to the Folder') {
             steps {
-                sh 'cd /projects'
+                sh 'cd /projects/linux'
             }
         }
 
