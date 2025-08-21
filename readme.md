@@ -1,2 +1,2 @@
-This is a repository intended for prcticing jenkins
+This is a repository intended for pa  rcticing jenkins
 testing
