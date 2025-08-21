@@ -1,2 +1,1 @@
-This is a repository intended for parcticing jenkins
-testing
+This is a repository intended for parcticing jenkins testing
