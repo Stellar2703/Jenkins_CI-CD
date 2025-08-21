@@ -1,1 +1,1 @@
-today is thursday
+yesterday is wednesday
